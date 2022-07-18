@@ -11,4 +11,21 @@ export async function createCredential(req: Request, res: Response) {
     console.log(userId);
 
     await credentialService.createCredential({title, url, username, password, userId});
+
+    res.sendStatus(200);
+}
+
+export async function getAllCredentials(req: Request, res: Response) {
+    const {id: userId} : { id: number } = res.locals.user;
+    console.log(userId, "jasioajaod")
+    const credentials = await credentialService.getAllCredentials(userId);
+
+    console.log('cheguei aqui')
+
+    res.status(200).send(credentials);
+
+}
+
+export async function getCredentialsById() {
+    
 }

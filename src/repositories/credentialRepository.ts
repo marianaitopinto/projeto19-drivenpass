@@ -13,3 +13,11 @@ export async function checkTitle(userId: number, title: string) {
 export async function insert(data: credentialData) {
   return prisma.credential.create({ data });
 }
+
+export async function getAll(userId: number) {
+  return prisma.credential.findMany({
+    where: {
+      userId,
+    },
+  });
+}
