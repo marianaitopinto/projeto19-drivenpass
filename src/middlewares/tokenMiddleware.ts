@@ -2,7 +2,7 @@ import { NextFunction, Request, Response } from "express";
 import { AppError } from "../errors/appError";
 import jwt from "jsonwebtoken";
 
-export default async function handleError(
+export function validateToken(
   req: Request,
   res: Response,
   next: NextFunction
