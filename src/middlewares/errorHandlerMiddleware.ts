@@ -7,6 +7,7 @@ export default async function handleError(
   res: Response,
   next: NextFunction
 ) {
+  console.log(error);
   if (error instanceof AppError) {
     return res.status(error.statusCode).send({ message: error.message });
   }

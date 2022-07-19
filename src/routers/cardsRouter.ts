@@ -9,6 +9,6 @@ const cardsRouter = Router();
 
 cardsRouter.post("/cards", validateToken, createCard);
 cardsRouter.get("/cards", validateToken, getAllCards);
-cardsRouter.get("/cards/:idNote", validateToken, getCardById);
+cardsRouter.get("/cards/:idCard", validateToken, getCardById);
 
 export default cardsRouter;

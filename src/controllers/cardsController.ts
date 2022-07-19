@@ -25,7 +25,8 @@ export async function getAllCards(req: Request, res: Response) {
 export async function getCardById(req: Request, res: Response) {
   const {id: userId} : { id: number } = res.locals.user;
   const idCard = parseInt(req.params.idCard);
-
+  console.log(idCard)
+  
   const card = await cardsService.getCardById(userId, idCard)
 
   res.status(200).send(card);
