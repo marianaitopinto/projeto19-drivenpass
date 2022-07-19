@@ -29,3 +29,14 @@ export async function getNoteById(userId: number, idNote: number) {
 
   return note;
 }
+
+export async function deleteNote(userId: number, idNote: number) {
+    const note = await noteRepository.getNoteById(idNote);
+    if (!note) throw new AppError("Note not found!", 404);
+
+    if (note.userId !== userId) throw new AppError("Unauthorized! Invalid token for this note", 401);
+
+    await noteRepository.deleteNote(idNote);
+
+    return;
+}

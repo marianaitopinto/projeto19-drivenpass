@@ -22,3 +22,11 @@ export async function getAll(userId: number) {
 export async function getNoteById(idNote: number) {
   return prisma.note.findFirst({ where: { id: idNote } });
 }
+
+export async function deleteNote(idNote: number) {
+    return prisma.note.delete({
+      where: {
+        id: idNote,
+      },
+    });
+  }
