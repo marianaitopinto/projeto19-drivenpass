@@ -1,12 +1,13 @@
 import Cryptr from "cryptr";
 import { Wifi } from "@prisma/client";
 import { AppError } from "../errors/appError";
+import "dotenv/config";
 
 import * as wifiRepository from "../repositories/wifiRepository";
 
 export type wifiData = Omit<Wifi, "id">;
 
-const cryptr = new Cryptr("my_ultra_secret_jwt_key"); //FIXME
+const cryptr = new Cryptr(process.env.JWT_SECRET as string);
 
 export async function createWifi(data: wifiData) {
   const encryptPassword = cryptr.encrypt(data.password);

@@ -1,12 +1,13 @@
 import Cryptr from "cryptr";
 import { Card } from "@prisma/client";
 import { AppError } from "../errors/appError";
+import "dotenv/config";
 
 import * as cardRepository from "../repositories/cardsRepository";
 
 export type cardData = Omit<Card, "id">;
 
-const cryptr = new Cryptr("my_ultra_secret_jwt_key"); //FIXME
+const cryptr = new Cryptr(process.env.JWT_SECRET as string);
 
 export async function createCard(data: cardData, userId: number) {
   const checkTitle = await cardRepository.checkTitle(userId, data.title);

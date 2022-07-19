@@ -2,13 +2,13 @@ import { Credential } from "@prisma/client";
 import * as credentialRepository from "../repositories/credentialRepository";
 import { AppError } from "../errors/appError";
 import Cryptr from "cryptr";
+import "dotenv/config";
 
 export type credentialData = Omit<Credential, "id">;
 
-export async function createCredential(data: credentialData) {
-  const cryptr = new Cryptr("myTotallySecretKey");
-  //FIXMEEEEEEEEE
+const cryptr = new Cryptr(process.env.CRYPTR_KEY as string);
 
+export async function createCredential(data: credentialData) {
   const checkCredential = await credentialRepository.checkTitle(
     data.userId,
     data.title
@@ -23,9 +23,6 @@ export async function createCredential(data: credentialData) {
 }
 
 export async function getAllCredentials(userId: number) {
-  const cryptr = new Cryptr("myTotallySecretKey");
-  //FIXMEEEEEEEEE
-
   const credentials = await credentialRepository.getAll(userId);
 
   credentials.map((credential) => {
@@ -37,8 +34,6 @@ export async function getAllCredentials(userId: number) {
 }
 
 export async function getCredentialById(userId: number, idCredential: number) {
-  const cryptr = new Cryptr("myTotallySecretKey");
-
   const credential = await credentialRepository.getCredential(idCredential);
   if (!credential) throw new AppError("Credential not found!", 404);
 
