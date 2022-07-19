@@ -10,3 +10,11 @@ export async function checkTitle(userId: number, title: string) {
 export async function createNote(data: noteData) {
     return prisma.note.create({ data });
 }
+
+export async function getAll(userId: number) {
+    return prisma.note.findMany({
+      where: {
+        userId,
+      },
+    });
+  }

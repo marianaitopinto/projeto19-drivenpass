@@ -11,3 +11,17 @@ export async function createNote(req: Request, res: Response) {
 
     res.sendStatus(201);
 }
+
+export async function getAllNotes(req: Request, res: Response) {
+    const {id: userId} : { id: number } = res.locals.user;
+    const notes = await notesService.getAllNotes(userId);
+
+    console.log(notes)
+
+    res.status(200).send(notes);
+}
+
+export async function getNoteById(req: Request, res: Response) {
+    const {id: userId} : { id: number } = res.locals.user;
+
+}

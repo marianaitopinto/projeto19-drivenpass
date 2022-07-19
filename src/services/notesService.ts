@@ -12,3 +12,11 @@ export async function createNote(data: noteData) {
 
   await noteRepository.createNote(data);
 }
+
+export async function getAllNotes(userId: number) {
+  
+    const notes = await noteRepository.getAll(userId);
+  
+  
+    return notes;
+  }
