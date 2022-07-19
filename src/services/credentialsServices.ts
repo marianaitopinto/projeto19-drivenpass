@@ -53,3 +53,14 @@ export async function getCredentialById(userId: number, idCredential: number) {
 
     return credential;
 }
+
+export async function deleteCredential(userId: number, idCredential: number) {
+    const credential = await credentialRepository.getCredential(idCredential);
+    if (!credential) throw new AppError("Credential not found!", 404);
+
+    if (credential.userId !== userId) throw new AppError("Unauthorized! Invalid token for this credential", 401);
+
+    await credentialRepository.deleteCredential(idCredential);
+
+    return;
+}

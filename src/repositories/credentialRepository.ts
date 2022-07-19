@@ -29,3 +29,11 @@ export async function getCredential(credentialId: number) {
     },
   });
 }
+
+export async function deleteCredential(credentialId: number) {
+  return prisma.credential.delete({
+    where: {
+      id: credentialId,
+    },
+  });
+}
