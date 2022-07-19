@@ -43,3 +43,15 @@ export async function getWifiById(userId: number, idWifi: number) {
 
   return wifi;
 }
+
+export async function deleteWifi(userId: number, idWifi: number) {
+  const wifi = await wifiRepository.getWifi(idWifi);
+  if (!wifi) throw new AppError("Credential not found!", 404);
+
+  if (wifi.userId !== userId)
+    throw new AppError("Unauthorized! Invalid token for this wifi", 401);
+
+  await wifiRepository.deleteWifi(idWifi);
+
+  return;
+}
