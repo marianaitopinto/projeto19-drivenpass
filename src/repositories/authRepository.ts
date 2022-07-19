@@ -6,5 +6,5 @@ export async function findUserByEmail(email: string) {
 }
 
 export async function insertUser(user: userData) {
-    return prisma.user.create({ data: user });
+  return prisma.user.create({ data: user });
 }

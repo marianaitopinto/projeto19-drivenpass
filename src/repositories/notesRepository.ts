@@ -24,9 +24,9 @@ export async function getNoteById(idNote: number) {
 }
 
 export async function deleteNote(idNote: number) {
-    return prisma.note.delete({
-      where: {
-        id: idNote,
-      },
-    });
-  }
+  return prisma.note.delete({
+    where: {
+      id: idNote,
+    },
+  });
+}

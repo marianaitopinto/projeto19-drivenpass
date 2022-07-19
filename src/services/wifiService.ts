@@ -12,8 +12,6 @@ export async function createWifi(data: wifiData) {
   const encryptPassword = cryptr.encrypt(data.password);
   data.password = encryptPassword;
 
-  console.log(data);
-
   await wifiRepository.createWifi(data);
 }
 

@@ -16,8 +16,6 @@ export async function getAllWifis(req: Request, res: Response) {
   const { id: userId }: { id: number } = res.locals.user;
   const wifis = await wifiService.getAllWifis(userId);
 
-  console.log(wifis);
-
   res.status(200).send(wifis);
 }
 
@@ -31,10 +29,10 @@ export async function getWifiById(req: Request, res: Response) {
 }
 
 export async function deleteWifi(req: Request, res: Response) {
-    const {id: userId} : { id: number } = res.locals.user;
-    const idWifi = parseInt(req.params.idWifi);
+  const { id: userId }: { id: number } = res.locals.user;
+  const idWifi = parseInt(req.params.idWifi);
 
-    await wifiService.deleteWifi(userId, idWifi)
+  await wifiService.deleteWifi(userId, idWifi);
 
-    res.sendStatus(204);
+  res.sendStatus(204);
 }

@@ -26,7 +26,7 @@ export async function getAllCards(userId: number) {
 
   notes.map((note) => {
     note.password = cryptr.decrypt(note.password);
-    note.cvv = cryptr.decrypt(note.cvv)
+    note.cvv = cryptr.decrypt(note.cvv);
     return note;
   });
 
@@ -34,15 +34,14 @@ export async function getAllCards(userId: number) {
 }
 
 export async function getCardById(userId: number, idCard: number) {
-  console.log(idCard)
   const card = await cardRepository.getCardById(idCard);
   if (!card) throw new AppError("Card not found!", 404);
 
   if (card.userId !== userId)
     throw new AppError("Unauthorized! Invalid token for this card", 401);
 
-    card.password = cryptr.decrypt(card.password);
-    card.cvv = cryptr.decrypt(card.cvv);
+  card.password = cryptr.decrypt(card.password);
+  card.cvv = cryptr.decrypt(card.cvv);
 
   return card;
 }

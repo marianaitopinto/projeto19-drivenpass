@@ -6,7 +6,6 @@ import Cryptr from "cryptr";
 export type credentialData = Omit<Credential, "id">;
 
 export async function createCredential(data: credentialData) {
-  console.log(data);
   const cryptr = new Cryptr("myTotallySecretKey");
   //FIXMEEEEEEEEE
 
@@ -29,38 +28,36 @@ export async function getAllCredentials(userId: number) {
 
   const credentials = await credentialRepository.getAll(userId);
 
-  console.log(credentials, "antes de");
-
   credentials.map((credential) => {
     credential.password = cryptr.decrypt(credential.password);
     return credential;
   });
 
-  console.log(credentials, "depois de descriptar");
-
   return credentials;
 }
 
 export async function getCredentialById(userId: number, idCredential: number) {
-    const cryptr = new Cryptr("myTotallySecretKey");
-    
-    const credential = await credentialRepository.getCredential(idCredential);
-    if (!credential) throw new AppError("Credential not found!", 404);
+  const cryptr = new Cryptr("myTotallySecretKey");
 
-    if (credential.userId !== userId) throw new AppError("Unauthorized! Invalid token for this credential", 401);
+  const credential = await credentialRepository.getCredential(idCredential);
+  if (!credential) throw new AppError("Credential not found!", 404);
 
-    credential.password = cryptr.decrypt(credential.password);
+  if (credential.userId !== userId)
+    throw new AppError("Unauthorized! Invalid token for this credential", 401);
 
-    return credential;
+  credential.password = cryptr.decrypt(credential.password);
+
+  return credential;
 }
 
 export async function deleteCredential(userId: number, idCredential: number) {
-    const credential = await credentialRepository.getCredential(idCredential);
-    if (!credential) throw new AppError("Credential not found!", 404);
+  const credential = await credentialRepository.getCredential(idCredential);
+  if (!credential) throw new AppError("Credential not found!", 404);
 
-    if (credential.userId !== userId) throw new AppError("Unauthorized! Invalid token for this credential", 401);
+  if (credential.userId !== userId)
+    throw new AppError("Unauthorized! Invalid token for this credential", 401);
 
-    await credentialRepository.deleteCredential(idCredential);
+  await credentialRepository.deleteCredential(idCredential);
 
-    return;
+  return;
 }
