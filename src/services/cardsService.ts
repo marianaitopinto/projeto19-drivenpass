@@ -46,3 +46,15 @@ export async function getCardById(userId: number, idCard: number) {
 
   return card;
 }
+
+export async function deleteCard(userId: number, idCard: number) {
+  const card = await cardRepository.getCardById(idCard);
+  if (!card) throw new AppError("Card not found!", 404);
+
+  if (card.userId !== userId)
+    throw new AppError("Unauthorized! Invalid token for this card", 401);
+
+  await cardRepository.deleteCard(idCard);
+
+  return;
+}

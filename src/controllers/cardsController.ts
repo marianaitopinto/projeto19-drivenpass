@@ -31,3 +31,12 @@ export async function getCardById(req: Request, res: Response) {
 
   res.status(200).send(card);
 }
+
+export async function deleteCard(req: Request, res: Response) {
+  const {id: userId} : { id: number } = res.locals.user;
+  const idCard = parseInt(req.params.idCard);
+
+  await cardsService.deleteCard(userId, idCard)
+
+  res.sendStatus(204);
+}

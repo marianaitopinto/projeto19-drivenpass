@@ -22,3 +22,11 @@ export async function getAll(userId: number) {
 export async function getCardById(idCard: number) {
   return prisma.card.findFirst({ where: { id: idCard } });
 }
+
+export async function deleteCard(idCard: number) {
+  return prisma.card.delete({
+    where: {
+      id: idCard,
+    },
+  });
+}
