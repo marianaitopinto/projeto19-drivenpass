@@ -16,3 +16,19 @@ export async function createWifi(data: wifiData) {
 
     await wifiRepository.createWifi(data);
 }
+
+export async function getAllWifis(userId: number) {
+  
+    const wifis = await wifiRepository.getAll(userId);
+  
+    console.log(wifis, "antes de");
+  
+    wifis.map((wifi) => {
+      wifi.password = cryptr.decrypt(wifi.password);
+      return wifi;
+    });
+  
+    console.log(wifis, "depois de descriptar");
+  
+    return wifis;
+  }
