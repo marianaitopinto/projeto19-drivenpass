@@ -1,0 +1,12 @@
+import { prisma } from "../config/database";
+import { noteData } from "../services/notesService";
+
+export async function checkTitle(userId: number, title: string) {
+  return prisma.note.findFirst({
+    where: { userId, title: { equals: title, mode: "insensitive" } },
+  });
+}
+
+export async function createNote(data: noteData) {
+    return prisma.note.create({ data });
+}
