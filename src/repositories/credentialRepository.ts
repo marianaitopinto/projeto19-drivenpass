@@ -21,3 +21,11 @@ export async function getAll(userId: number) {
     },
   });
 }
+
+export async function getCredential(credentialId: number) {
+  return prisma.credential.findFirst({
+    where: {
+      id: credentialId,
+    },
+  });
+}

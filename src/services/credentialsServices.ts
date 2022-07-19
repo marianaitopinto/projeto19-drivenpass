@@ -40,3 +40,16 @@ export async function getAllCredentials(userId: number) {
 
   return credentials;
 }
+
+export async function getCredentialById(userId: number, idCredential: number) {
+    const cryptr = new Cryptr("myTotallySecretKey");
+    
+    const credential = await credentialRepository.getCredential(idCredential);
+    if (!credential) throw new AppError("Credential not found!", 404);
+
+    if (credential.userId !== userId) throw new AppError("Unauthorized! Invalid token for this credential", 401);
+
+    credential.password = cryptr.decrypt(credential.password);
+
+    return credential;
+}
