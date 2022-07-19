@@ -23,5 +23,9 @@ export async function getAllNotes(req: Request, res: Response) {
 
 export async function getNoteById(req: Request, res: Response) {
     const {id: userId} : { id: number } = res.locals.user;
+    const idNote = parseInt(req.params.idNote);
 
+    const note = await notesService.getNoteById(userId, idNote)
+
+    res.status(200).send(note);
 }

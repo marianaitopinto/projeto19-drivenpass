@@ -8,13 +8,17 @@ export async function checkTitle(userId: number, title: string) {
 }
 
 export async function createNote(data: noteData) {
-    return prisma.note.create({ data });
+  return prisma.note.create({ data });
 }
 
 export async function getAll(userId: number) {
-    return prisma.note.findMany({
-      where: {
-        userId,
-      },
-    });
-  }
+  return prisma.note.findMany({
+    where: {
+      userId,
+    },
+  });
+}
+
+export async function getNoteById(idNote: number) {
+  return prisma.note.findFirst({ where: { id: idNote } });
+}

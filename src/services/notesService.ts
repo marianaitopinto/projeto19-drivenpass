@@ -14,9 +14,18 @@ export async function createNote(data: noteData) {
 }
 
 export async function getAllNotes(userId: number) {
-  
-    const notes = await noteRepository.getAll(userId);
-  
-  
-    return notes;
-  }
+  const notes = await noteRepository.getAll(userId);
+
+  return notes;
+}
+
+export async function getNoteById(userId: number, idNote: number) {
+
+  const note = await noteRepository.getNoteById(idNote);
+  if (!note) throw new AppError("Note not found!", 404);
+
+  if (note.userId !== userId)
+    throw new AppError("Unauthorized! Invalid token for this credential", 401);
+
+  return note;
+}
